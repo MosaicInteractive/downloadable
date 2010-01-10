@@ -1,8 +1,8 @@
 require 'zip/zip'
 class Downloadable < ProductDownload
   has_attached_file :attachment,
-                    :url => "/downloadable/:id/:basename.:extension",
-                    :path => ":rails_root/public/downloadable/:id/:basename.:extension"
+                    :url => "/downloadable/:id/:secret/:basename.:extension",
+                    :path => ":rails_root/public/downloadable/:id/:secret/:basename.:extension"
 
   
   before_save :set_title

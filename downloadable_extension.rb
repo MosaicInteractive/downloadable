@@ -2,9 +2,9 @@ require_dependency 'application'
 #require_dependency 'application_controller'
 
 class DownloadableExtension < Spree::Extension
-  version "1.0"
+  version "1.1"
   description "Downloadable products"
-  url "http://github.com/chtrinh/downloadable/tree/master"
+  url "http://github.com/rocket-rentals/downloadable"
   
   def self.require_gems(config)
     config.gem 'rubyzip', :lib => 'zip/zip', :version => '0.9.1'
@@ -93,7 +93,6 @@ class DownloadableExtension < Spree::Extension
     # Helper class_evals
     # ----------------------------------------------------------------------------------------------------------
     ApplicationHelper.class_eval do
-      require 'md5'
       # Checks if checkout cart has ONLY downloadable items
       # Used for shipping in helpers/checkouts_helper.rb
       def only_downloadable
@@ -121,11 +120,22 @@ class DownloadableExtension < Spree::Extension
       end
       
       def generate_secret(record)
-        MD5.hexdigest("#{record.id}-#{ActionController::Base.session_options[:secret]}")
+        Digest::MD5.hexdigest("#{record.id}-#{ActionController::Base.session_options[:secret]}")
       end
     end
     # ----------------------------------------------------------------------------------------------------------
     # End for Helpers 
     # ----------------------------------------------------------------------------------------------------------   
+
+    # ----------------------------------------------------------------------------------------------------------
+    # Configure Paperclip
+    # ----------------------------------------------------------------------------------------------------------   
+    Paperclip.interpolates(:secret) do |attachment, style|
+      Digest::MD5.hexdigest("#{attachment.instance.id}-#{ActionController::Base.session_options[:secret]}")
+    end
+    # ----------------------------------------------------------------------------------------------------------
+    # End for Paperclip Configuration
+    # ----------------------------------------------------------------------------------------------------------   
+  
   end
 end

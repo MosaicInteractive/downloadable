@@ -26,7 +26,6 @@ Does not smoothly updates from older versions of this extension.
 	- Disables guest checking when order has a downloadable content.
 
 ## TODO
-	- SHA folder names to prevent unauthorize access to download links (prevent lucky guesses to public/xyz/xyz/)
 	- Integrate spree-s3-download, probably create a fork
 	- Integrate or fork to another extension for mulitiple email templates. 
 
@@ -48,6 +47,7 @@ Suggestions and comments welcomed, chris.chtrinh@gmail.com
 The MIT License
 
 Copyright (c) 2009 Chris Trinh
+Copyright (c) 2010 Jan Schulz-Hofen, ROCKET RENTALS GmbH (http://www.rocket-rentals.de)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

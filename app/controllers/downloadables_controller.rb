@@ -7,7 +7,7 @@ class DownloadablesController < Spree::BaseController
   
   def show
     item = LineItem.find(params[:id])
-    if MD5.hexdigest("#{item.id}-#{ActionController::Base.session_options[:secret]}") != params[:s]
+    if Digest::MD5.hexdigest("#{item.id}-#{ActionController::Base.session_options[:secret]}") != params[:s]
       flash[:error] = t(:unauthorized_access)
       redirect_to order_url(item.order)
     elsif ((item.download_limit.nil? || (item.download_limit > 0))) 
