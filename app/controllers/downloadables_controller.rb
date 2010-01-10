@@ -1,12 +1,16 @@
 class DownloadablesController < Spree::BaseController  
   # require_user is a method in Application.rb
-  before_filter :require_user, :only => :show
+  # disabled to enable downloads for non-members     
+  # before_filter :require_user, :only => :show
   
   ssl_required :show
   
   def show
     item = LineItem.find(params[:id])
-    if(item.download_limit.nil? || (item.download_limit > 0))
+    if MD5.hexdigest("#{item.id}-#{ActionController::Base.session_options[:secret]}") != params[:s]
+      flash[:error] = t(:unauthorized_access)
+      redirect_to order_url(item.order)
+    elsif ((item.download_limit.nil? || (item.download_limit > 0))) 
       item.decrement!(:download_limit) if (!item.download_limit.nil?)
       
       filepath = ""
@@ -21,7 +25,7 @@ class DownloadablesController < Spree::BaseController
       # fetch the file. Uncomment the line below.
       send_file filepath #, :x_sendfile => true
     else
-      flash[:error] = "Reached download limit."
+      flash[:error] = t(:you_have_reached_your_download_limit)
       redirect_to order_url(item.order)
     end
   end

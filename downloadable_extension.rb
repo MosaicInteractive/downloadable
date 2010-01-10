@@ -93,6 +93,7 @@ class DownloadableExtension < Spree::Extension
     # Helper class_evals
     # ----------------------------------------------------------------------------------------------------------
     ApplicationHelper.class_eval do
+      require 'md5'
       # Checks if checkout cart has ONLY downloadable items
       # Used for shipping in helpers/checkouts_helper.rb
       def only_downloadable
@@ -113,10 +114,14 @@ class DownloadableExtension < Spree::Extension
       
       def render_links(item)
         if !item.product.downloadables.empty?
-          return content_tag(:sub,link_to("#{item.product.downloadables.first.filename}", downloadable_url(item)))
+          return content_tag(:sub,link_to("#{item.product.downloadables.first.filename}", downloadable_url(item, :s => generate_secret(item))))
         elsif !item.variant.downloadables.empty?
-          return content_tag(:sub,link_to("#{item.variant.downloadables.first.filename}", downloadable_url(item)))
+          return content_tag(:sub,link_to("#{item.variant.downloadables.first.filename}", downloadable_url(item, :s => generate_secret(item))))
         end
+      end
+      
+      def generate_secret(record)
+        MD5.hexdigest("#{record.id}-#{ActionController::Base.session_options[:secret]}")
       end
     end
     # ----------------------------------------------------------------------------------------------------------
