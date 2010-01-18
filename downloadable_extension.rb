@@ -111,11 +111,13 @@ class DownloadableExtension < Spree::Extension
         end
       end
       
-      def render_links(item)
-        if !item.product.downloadables.empty?
+      def render_links(item, options={:html => true})
+        if options[:html] == false
+          return t(:download) + ': ' + downloadable_url(item, :s => generate_secret(item))
+        elsif !item.product.downloadables.empty?
           return content_tag(:sub,t(:download) + ': ' + link_to("#{item.product.downloadables.first.filename}", downloadable_url(item, :s => generate_secret(item))))
         elsif !item.variant.downloadables.empty?
-          return content_tag(:sub,link_to("#{item.variant.downloadables.first.filename}", downloadable_url(item, :s => generate_secret(item))))
+          return content_tag(:sub,t(:download) + ': ' + link_to("#{item.variant.downloadables.first.filename}", downloadable_url(item, :s => generate_secret(item))))
         end
       end
       

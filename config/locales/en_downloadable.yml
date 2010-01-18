@@ -12,3 +12,7 @@ en-US:
   variant: "Variant"
   filename(s): "Filename(s)"
   download: "Download"
+  "Dear Customer": "Dear Customer,"
+  "Please find an invoice for your purchases below": "Please find an invoice for your purchases below."
+  "Invoice": "Invoice"
+  'Thank you for your business': 'Thank you for your business'

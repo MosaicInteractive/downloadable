@@ -12,3 +12,7 @@ de:
   variant: "Variante"
   filename(s): "Dateiname(n)"
   download: "Download"
+  "Dear Customer": "Sehr geehrte Kundin, sehr geehrter Kunde,"
+  "Please find an invoice for your purchases below": "anbei finden Sie die Rechnung für die von Ihnen erworbenen Artikel."
+  "Invoice": "Rechnung"
+  'Thank you for your business': 'Vielen Dank für Ihren Einkauf.'
