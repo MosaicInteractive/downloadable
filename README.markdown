@@ -10,7 +10,7 @@ Support for current Spree gem: Spree 0.9.2.
 Does not smoothly updates from older versions of this extension.
 
 ## QUICK START
-1. script/extension install git://github.com/chtrinh/downloadable.git
+1. script/extension install git://github.com/rocket-rentals/downloadable.git
 2. rake gems:install
 3. rake db:migrate (or rake db:bootstrap)
 
