@@ -14,10 +14,10 @@ class DownloadablesController < Spree::BaseController
       item.decrement!(:download_limit) if (!item.download_limit.nil?)
       
       filepath = ""
-      if !item.product.downloadables.empty?
-        filepath = item.product.downloadables.first.attachment.path
-      elsif !item.variant.downloadables.empty?
+      if !item.variant.downloadables.empty?
         filepath = item.variant.downloadables.first.attachment.path
+      elsif !item.product.downloadables.empty?
+        filepath = item.product.downloadables.first.attachment.path
       end
       
       # In pratical use, enabled X-sendfile in your server flavor ie. Apache, lighty, etc.. 
